@@ -21,9 +21,7 @@ class Ip:
             >>> a.getAddrBytes()
             [192, 168, 53, 1]
         '''
-         addrb = self.addr.split(".")
-         int_addrb = list(map(int,addr))
-         return int_addrb
+        return list(map(int, self.addr.split(".")))
     
     def getMaskBytes(self):
         '''
