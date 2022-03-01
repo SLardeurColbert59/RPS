@@ -1,6 +1,7 @@
 class Ip:
     
     def __init__(self, cidr):
+
         '''
             @tests :
             >>> a = Ip("192.168.53.1/24")
@@ -8,7 +9,9 @@ class Ip:
             '192.168.53.1'
             >>> a .mask
             24
-        '''  
+        '''
+        self.addr=cidr.split("/")[0]
+        self.mask=int(cidr.split("/")[1])
         pass
         
     def getAddrBytes(self):
@@ -18,7 +21,9 @@ class Ip:
             >>> a.getAddrBytes()
             [192, 168, 53, 1]
         '''
-        pass
+         addrb = self.addr.split(".")
+         int_addrb = list(map(int,addr))
+         return int_addrb
     
     def getMaskBytes(self):
         '''
