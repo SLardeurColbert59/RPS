@@ -12,7 +12,6 @@ class Ip:
         '''
         self.addr=cidr.split("/")[0]
         self.mask=int(cidr.split("/")[1])
-        pass
         
     def getAddrBytes(self):
         '''
@@ -21,7 +20,10 @@ class Ip:
             >>> a.getAddrBytes()
             [192, 168, 53, 1]
         '''
-        return list(map(int, self.addr.split(".")))
+        addr = self.addr.split(".")
+        int_addr=list(map(int,addr))
+        return int_addr
+    
     
     def getMaskBytes(self):
         '''
@@ -33,7 +35,11 @@ class Ip:
             >>> b.getMaskBytes()
             [255, 255, 192, 0]
         '''
-        pass
+        S1 = S[0:8]
+        S2 = S[8:16]
+        S3 = S[16:24]
+        S4 = S[24:32]
+        return [int(S1,2) , int(S2,2), int(S3,2), int(S4,2)]
     
     def getNetworkBytes(self):
         '''
@@ -45,7 +51,10 @@ class Ip:
             >>> b.getNetworkBytes()
             [91, 198, 160, 0]
         '''
-        pass
+        ip = self.getAddrBytes()
+        mask = self.getMaskBytes()
+        
+        return [ip[i] & mask[i] for i in range (4)]
         
     def getHostBytes(self):
         '''
@@ -57,8 +66,10 @@ class Ip:
             >>> b.getHostBytes()
             [0, 0, 14, 2]
         '''
-        pass
-    
+        ip = self.getAddrBytes()
+        mask = self.getMaskBytes()
+        
+        return [ip[i] & (255-mask[i]) for i in range(4)]
         
 if __name__ == '__main__':
     import doctest
