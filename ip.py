@@ -70,6 +70,9 @@ class Ip:
         mask = self.getMaskBytes()
         
         return [ip[i] & (255-mask[i]) for i in range(4)]
+    
+    def __repr__(self):
+        return f'{self.addr}/{self.mask}'
         
 if __name__ == '__main__':
     import doctest
